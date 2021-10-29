@@ -15,6 +15,11 @@ trait IssuesToken
             'scope'         => $scope
         ];
 
+        if ($grantType === 'password') {
+            $request->request->add(['username' => $request->get('email')]);
+            $request->request->remove('email');
+        }
+
         $request->request->add($params);
         $proxy = Request::create('oauth/token', 'POST', $request->request->all());
         $pipeline = app()->dispatch($proxy);
