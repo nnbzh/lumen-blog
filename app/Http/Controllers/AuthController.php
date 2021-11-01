@@ -11,7 +11,7 @@ class AuthController extends BaseController
 {
     use IssuesToken;
 
-    private $userService;
+    private UserService $userService;
 
     public function __construct(UserService $userService)
     {
