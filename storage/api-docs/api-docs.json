@@ -100,6 +100,92 @@
                 ]
             }
         },
+        "/api/complains": {
+            "get": {
+                "tags": [
+                    "complains"
+                ],
+                "summary": "Get complains",
+                "operationId": "complains",
+                "responses": {
+                    "200": {
+                        "description": "Returns data"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "complains"
+                ],
+                "summary": "Create complain for comment",
+                "operationId": "comments.complain.create",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "post_comment_id": {
+                                        "description": "Id of the comment",
+                                        "type": "int"
+                                    },
+                                    "message": {
+                                        "description": "Complain message",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/complains/{id}/process": {
+            "get": {
+                "tags": [
+                    "complains"
+                ],
+                "summary": "Accept or reject complain",
+                "operationId": "complains.process",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "comlain id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Returns data"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
         "/api/posts/{id}/comments": {
             "get": {
                 "tags": [
