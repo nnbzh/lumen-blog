@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePostDislikesTable extends Migration
+class CreatePostImagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class CreatePostDislikesTable extends Migration
      */
     public function up()
     {
-        Schema::create('post_dislikes', function (Blueprint $table) {
+        Schema::create('post_images', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('post_id')->unique()->references('id')->on('posts')->cascadeOnDelete();
-            $table->bigInteger('count')->default(0);
+            $table->string('src');
+            $table->foreignId('post_id')->nullable()->references('id')->on('posts')->nullOnDelete();
+            $table->timestamps();
         });
     }
 
@@ -27,6 +28,6 @@ class CreatePostDislikesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('post_dislikes');
+        Schema::dropIfExists('post_images');
     }
 }

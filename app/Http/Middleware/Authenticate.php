@@ -2,11 +2,13 @@
 
 namespace App\Http\Middleware;
 
+use App\Traits\ApiResponse;
 use Closure;
 use Illuminate\Contracts\Auth\Factory as Auth;
 
 class Authenticate
 {
+    use ApiResponse;
     /**
      * The authentication guard factory instance.
      *
@@ -36,8 +38,10 @@ class Authenticate
     public function handle($request, Closure $next, $guard = null)
     {
         if ($this->auth->guard($guard)->guest()) {
-            return response('Вы не авторизованы.', 401);
+            return $this->errorResponse(401, 'Вы не авторизованы.');
         }
+
+        $request->merge(['user_id' => $request->user()->id]);
 
         return $next($request);
     }

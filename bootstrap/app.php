@@ -63,6 +63,8 @@ $app->singleton(
 $app->configure('app');
 $app->configure('cors');
 $app->configure('auth');
+$app->configure('filesystems');
+$app->configure('swagger-lume');
 
 /*
 |--------------------------------------------------------------------------
@@ -101,6 +103,8 @@ $app->register(App\Providers\EventServiceProvider::class);
 $app->register(Fruitcake\Cors\CorsServiceProvider::class);
 $app->register(Laravel\Passport\PassportServiceProvider::class);
 $app->register(Dusterio\LumenPassport\PassportServiceProvider::class);
+$app->register(Illuminate\Filesystem\FilesystemServiceProvider::class);
+$app->register(\SwaggerLume\ServiceProvider::class);
 /*
 |--------------------------------------------------------------------------
 | Load The Application Routes

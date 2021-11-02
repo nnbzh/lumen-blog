@@ -19,17 +19,13 @@ class Post extends TimestampedModel
         'img_src',
         'content',
         'category_id',
-        'user_id'
+        'user_id',
+        'short_description'
     ];
 
     public function likeCount(): HasOne
     {
         return $this->hasOne(PostLike::class, 'post_id', 'id');
-    }
-
-    public function dislikeCount(): HasOne
-    {
-        return $this->hasOne(PostDislike::class, 'post_id', 'id');
     }
 
     public function viewCount(): HasOne
@@ -42,5 +38,19 @@ class Post extends TimestampedModel
         return $this->hasMany(PostComment::class, 'post_id', 'id');
     }
 
+    public function author() {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
 
+    public function images() {
+        return $this->hasMany(Image, 'post_id', 'id');
+    }
+
+    public function likes() {
+        return $this->hasMany(PostUserReaction::class, 'post_id', 'id')->where('reaction', true);
+    }
+
+    public function dislikes() {
+        return $this->hasMany(PostUserReaction::class, 'post_id', 'id')->where('reaction', false);
+    }
 }

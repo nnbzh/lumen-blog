@@ -15,10 +15,8 @@ class PostFactory extends Factory
     {
         return [
             'title'         => $this->faker->title,
-            'img_src'       => $this->faker->url,
             'content'       => $this->faker->text,
-            'category_id'   => Category::factory()->create()->id,
-            'user_id'       => User::factory()->create()->id
+            'short_description' => $this->faker->realText,
         ];
     }
 }

@@ -4,16 +4,15 @@ namespace App\Services;
 
 use App\Helpers\Pagination;
 use App\Models\Post;
-use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Storage;
 
 class PostService
 {
     public function list(array $filters)
     {
-        $sortByLikes    = $filters['sort_likes'] ?? null;
         $sortByDate     = $filters['sort_date'] ?? null;
         $categoryId     = $filters['category_id'] ?? null;
-        $query          = Post::query();
+        $query          = Post::query()->with('author')->withCount(['likes', 'dislikes']);
 
         if (! empty($categoryId)) {
             $query->where('category_id', $categoryId);
@@ -23,17 +22,11 @@ class PostService
             $query->latest();
         }
 
-        if (! empty($sortByLikes)) {
-            $query->leftJoin('post_likes', 'post_likes.post_id', '=', 'posts.id');
-            $query->orderBy('post_likes.count');
-        }
-
         return Pagination::handle($query->paginate());
     }
 
     public function create(array $attributes) {
-        $post = new Post();
-        $post->fill($attributes);
+        return Post::query()->updateOrCreate($attributes);
     }
 
     public function get($id) {

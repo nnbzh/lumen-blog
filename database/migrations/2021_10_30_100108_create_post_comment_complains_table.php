@@ -15,7 +15,7 @@ class CreatePostCommentComplainsTable extends Migration
     {
         Schema::create('post_comment_complains', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('post_comment_id')->references('id')->on('post_comments')->cascadeOnDelete();
+            $table->foreignId('post_comment_id')->nullable()->references('id')->on('post_comments')->nullOnDelete();
             $table->foreignId('message');
             $table->boolean('is_accepted')->nullable();
             $table->timestamps();
