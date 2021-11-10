@@ -43,7 +43,7 @@ class Post extends TimestampedModel
     }
 
     public function images() {
-        return $this->hasMany(Image, 'post_id', 'id');
+        return $this->hasMany(PostImage::class, 'post_id', 'id');
     }
 
     public function likes() {

@@ -30,6 +30,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
             $router->delete('{id:[0-9]+}', 'PostController@delete');
             $router->get('{id:[0-9]+}/react', 'PostUserReactionController@react');
             $router->get('{id:[0-9]+}/comments', 'PostCommentController@list');
+            $router->post('{id:[0-9]+}/images', 'ImageController@create');
         });
     });
     $router->group(['prefix' => 'comments', 'middleware' => 'auth'], function () use ($router) {

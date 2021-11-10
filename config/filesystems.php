@@ -48,7 +48,7 @@ return [  /*
         ],
         'images' => [
             'driver' => 'local',
-            'root'   => base_path().'/public',
+            'root'   => base_path().'/public/images',
             'visibility' => 'public'
         ],
     ],

@@ -97,5 +97,9 @@ class PostController extends BaseController
         return $this->successResponse($this->postService->create($validated));
     }
 
+    public function get($id) {
+        return $this->successResponse($this->postService->get($id));
+    }
+
 
 }

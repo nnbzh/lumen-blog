@@ -12,7 +12,9 @@ class PostService
     {
         $sortByDate     = $filters['sort_date'] ?? null;
         $categoryId     = $filters['category_id'] ?? null;
-        $query          = Post::query()->with('author')->withCount(['likes', 'dislikes']);
+        $query          = Post::query()
+            ->with(['author', 'viewCount'])
+            ->withCount(['likes', 'dislikes', 'comments']);
 
         if (! empty($categoryId)) {
             $query->where('category_id', $categoryId);
@@ -30,6 +32,10 @@ class PostService
     }
 
     public function get($id) {
-
+        return Post::query()
+            ->with(['author', 'viewCount', 'images'])
+            ->withCount('likes', 'dislikes', 'comments')
+            ->where('id', $id)
+            ->firstOrFail();
     }
 }
