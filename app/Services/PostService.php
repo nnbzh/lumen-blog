@@ -4,7 +4,6 @@ namespace App\Services;
 
 use App\Helpers\Pagination;
 use App\Models\Post;
-use Illuminate\Support\Facades\Storage;
 
 class PostService
 {
@@ -12,12 +11,18 @@ class PostService
     {
         $sortByDate     = $filters['sort_date'] ?? null;
         $categoryId     = $filters['category_id'] ?? null;
+        $keyword        = $filters['keyword'] ?? null;
+
         $query          = Post::query()
             ->with(['author', 'viewCount'])
             ->withCount(['likes', 'dislikes', 'comments']);
 
         if (! empty($categoryId)) {
             $query->where('category_id', $categoryId);
+        }
+
+        if (! empty($keyword)) {
+            $query->where('title', 'ilike', "$keyword%");
         }
 
         if (! empty($sortByDate)) {
