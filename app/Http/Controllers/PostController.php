@@ -98,6 +98,11 @@ class PostController extends BaseController
     }
 
     public function get($id) {
+        $post = $this->postService->get($id);
+        $views = $post->viewCount()->firstOrCreate();
+        $views->increment('count');
+        $views->save();
+
         return $this->successResponse($this->postService->get($id));
     }
 

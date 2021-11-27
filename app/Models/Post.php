@@ -23,6 +23,14 @@ class Post extends TimestampedModel
         'short_description'
     ];
 
+    protected $casts = [
+        'created_at' => "datetime:d-m-Y H:m"
+    ];
+
+    protected $hidden = [
+        'updated_at'
+    ];
+
     public function likeCount(): HasOne
     {
         return $this->hasOne(PostLike::class, 'post_id', 'id');
