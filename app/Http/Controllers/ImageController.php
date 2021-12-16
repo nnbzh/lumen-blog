@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
 use App\Models\PostImage;
 use Illuminate\Support\Facades\Storage;
 
@@ -23,5 +24,9 @@ class ImageController extends BaseController
         );
 
         return $this->successResponse($image);
+    }
+
+    public function list($id) {
+        return $this->successResponse(Post::query()->findOrFail($id)->images()->get());
     }
 }

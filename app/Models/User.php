@@ -26,4 +26,8 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         'created_at',
         'updated_at',
     ];
+
+    public function posts() {
+        return $this->belongsToMany(Post::class, 'post_user');
+    }
 }

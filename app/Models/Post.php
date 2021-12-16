@@ -14,6 +14,8 @@ class Post extends TimestampedModel
 
     protected $perPage = 15;
 
+    protected $appends = ['is_fav'];
+
     protected $fillable = [
         'title',
         'img_src',
@@ -47,7 +49,7 @@ class Post extends TimestampedModel
     }
 
     public function author() {
-        return $this->belongsTo(User::class, 'user_id', 'id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function images() {
@@ -58,7 +60,15 @@ class Post extends TimestampedModel
         return $this->hasMany(PostUserReaction::class, 'post_id', 'id')->where('reaction', true);
     }
 
+    public function category() {
+        return $this->belongsTo(Category::class);
+    }
+
     public function dislikes() {
         return $this->hasMany(PostUserReaction::class, 'post_id', 'id')->where('reaction', false);
+    }
+
+    public function getIsFavAttribute() {
+        return request()->user()?->posts()->where('id', $this->id)->exists();
     }
 }

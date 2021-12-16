@@ -14,7 +14,7 @@ class PostService
         $keyword        = $filters['keyword'] ?? null;
 
         $query          = Post::query()
-            ->with(['author', 'viewCount'])
+            ->with(['author', 'viewCount', 'category'])
             ->withCount(['likes', 'dislikes', 'comments']);
 
         if (! empty($categoryId)) {
@@ -22,7 +22,7 @@ class PostService
         }
 
         if (! empty($keyword)) {
-            $query->where('title', 'ilike', "$keyword%");
+            $query->where('title', 'ilike', "%$keyword%");
         }
 
         if (! empty($sortByDate)) {
@@ -38,7 +38,7 @@ class PostService
 
     public function get($id) {
         return Post::query()
-            ->with(['author', 'viewCount', 'images'])
+            ->with(['author', 'viewCount', 'images', 'category'])
             ->withCount('likes', 'dislikes', 'comments')
             ->where('id', $id)
             ->firstOrFail();

@@ -91,8 +91,9 @@ class PostController extends BaseController
             'short_description' => 'required|string',
             'content'           => 'required|string',
             'category_id'       => 'required|exists:categories,id',
-            'user_id'           => 'required|exists:users,id'
         ]);
+
+        $validated['user_id'] = $request->user()->id;
 
         return $this->successResponse($this->postService->create($validated));
     }
@@ -106,5 +107,15 @@ class PostController extends BaseController
         return $this->successResponse($this->postService->get($id));
     }
 
+    public function like($id, Request $request) {
+        $request->user()->posts()->attach(['post_id' => $id]);
 
+        return $this->successResponse(true);
+    }
+
+    public function unlike($id, Request $request) {
+        $request->user()->posts()->detach(['post_id' => $id]);
+
+        return $this->successResponse(null);
+    }
 }

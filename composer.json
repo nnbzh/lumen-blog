@@ -7,6 +7,7 @@
     "require": {
         "php": "^8.0",
         "darkaonline/swagger-lume": "^8.0",
+        "doctrine/dbal": "^3.2",
         "dusterio/lumen-passport": "^0.3.4",
         "fruitcake/laravel-cors": "^2.0",
         "laravel/lumen-framework": "^8.3.1",

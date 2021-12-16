@@ -28,12 +28,15 @@ $router->group(['prefix' => 'api'], function () use ($router) {
             $router->post('', 'PostController@create');
             $router->put('{id:[0-9]+}', 'PostController@edit');
             $router->delete('{id:[0-9]+}', 'PostController@delete');
+            $router->post('{id:[0-9]+}/like', 'PostController@like');
+            $router->delete('{id:[0-9]+}/like', 'PostController@unlike');
             $router->get('{id:[0-9]+}/react', 'PostUserReactionController@react');
-            $router->get('{id:[0-9]+}/comments', 'PostCommentController@list');
             $router->post('{id:[0-9]+}/images', 'ImageController@create');
+            $router->get('{id:[0-9]+}/images', 'ImageController@list');
         });
+        $router->get('{id:[0-9]+}/comments', 'PostCommentController@list');
     });
-    $router->group(['prefix' => 'comments', 'middleware' => 'auth'], function () use ($router) {
+        $router->group(['prefix' => 'comments', 'middleware' => 'auth'], function () use ($router) {
         $router->post('', 'PostCommentController@create');
         $router->post('{id:[0-9]+}/complain', 'PostCommentComplainController@create');
         $router->delete('{id:[0-9]+}', 'PostCommentController@delete');
@@ -42,5 +45,16 @@ $router->group(['prefix' => 'api'], function () use ($router) {
         $router->get('', 'PostCommentComplainController@list');
         $router->post('{id:[0-9]+}/process', 'PostCommentComplainController@process');
     });
-
+    $router->group(['prefix' => 'user', 'middleware' => 'auth'], function () use ($router) {
+        $router->get('favourites', 'UserController@favourites');
+    });
+    $router->group(['prefix' => 'categories'], function () use ($router) {
+        $router->get('', 'CategoryController@list');
+        $router->get('{id:[0-9]+}', 'CategoryController@get');
+        $router->group(['middleware' => 'auth'], function () use ($router) {
+            $router->post('', 'CategoryController@create');
+            $router->put('{id:[0-9]+}', 'CategoryController@edit');
+            $router->delete('{id:[0-9]+}', 'CategoryController@edit');
+        });
+    });
 });
