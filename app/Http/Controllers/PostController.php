@@ -118,4 +118,11 @@ class PostController extends BaseController
 
         return $this->successResponse(null);
     }
+
+    public function delete($id) {
+        $post = $this->postService->get($id);
+        $post->delete();
+
+        return $this->successResponse(null);
+    }
 }
