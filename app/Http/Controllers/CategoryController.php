@@ -33,6 +33,8 @@ class CategoryController extends BaseController
     }
 
     public function delete($id) {
-        return $this->successResponse(Category::query()->where('id', $id)->delete());
+        Category::query()->where('id', $id)->delete();
+
+        return $this->successResponse(null);
     }
 }

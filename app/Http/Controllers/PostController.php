@@ -98,6 +98,20 @@ class PostController extends BaseController
         return $this->successResponse($this->postService->create($validated));
     }
 
+    public function edit(Request $request, $id): JsonResponse
+    {
+        $validated = $this->validate($request, [
+            'title'             => 'nullable|string',
+            'short_description' => 'nullable|string',
+            'content'           => 'nullable|string',
+            'category_id'       => 'nullable|exists:categories,id',
+        ]);
+
+        $validated['user_id'] = $request->user()->id;
+
+        return $this->successResponse($this->postService->edit($id, $validated));
+    }
+
     public function get($id) {
         $post = $this->postService->get($id);
         $views = $post->viewCount()->firstOrCreate();
