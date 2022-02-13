@@ -42,7 +42,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     });
     $router->group(['prefix' => 'complains', 'middleware' => 'auth'], function () use ($router) {
         $router->post('', 'PostCommentComplainController@create');
-        $router->get('', 'PostCommentComplainController@comlist');
+        $router->get('', 'PostCommentComplainController@list');
         $router->post('{id:[0-9]+}/process', 'PostCommentComplainController@process');
     });
     $router->group(['prefix' => 'user', 'middleware' => 'auth'], function () use ($router) {
