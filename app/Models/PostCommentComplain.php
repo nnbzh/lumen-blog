@@ -11,6 +11,6 @@ class PostCommentComplain extends TimestampedModel
     ];
 
     public function comment() {
-        return $this->hasOne(PostComment::class, 'post_comment_id','id');
+        return $this->belongsTo(PostComment::class);
     }
 }
