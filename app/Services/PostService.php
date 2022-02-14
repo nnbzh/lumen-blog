@@ -36,6 +36,13 @@ class PostService
         return Post::query()->updateOrCreate($attributes);
     }
 
+    public function edit($id, array $attributes) {
+        $post = Post::query()->where('id', $id)->firstOrFail();
+        $post->update($attributes);
+
+        return $post;
+    }
+
     public function get($id) {
         return Post::query()
             ->with(['author', 'viewCount', 'images', 'category'])

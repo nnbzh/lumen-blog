@@ -38,10 +38,10 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     });
         $router->group(['prefix' => 'comments', 'middleware' => 'auth'], function () use ($router) {
         $router->post('', 'PostCommentController@create');
-        $router->post('{id:[0-9]+}/complain', 'PostCommentComplainController@create');
         $router->delete('{id:[0-9]+}', 'PostCommentController@delete');
     });
     $router->group(['prefix' => 'complains', 'middleware' => 'auth'], function () use ($router) {
+        $router->post('', 'PostCommentComplainController@create');
         $router->get('', 'PostCommentComplainController@list');
         $router->post('{id:[0-9]+}/process', 'PostCommentComplainController@process');
     });
@@ -54,7 +54,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
         $router->group(['middleware' => 'auth'], function () use ($router) {
             $router->post('', 'CategoryController@create');
             $router->put('{id:[0-9]+}', 'CategoryController@edit');
-            $router->delete('{id:[0-9]+}', 'CategoryController@edit');
+            $router->delete('{id:[0-9]+}', 'CategoryController@delete');
         });
     });
 });
