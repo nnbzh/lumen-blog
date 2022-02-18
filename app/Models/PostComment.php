@@ -20,4 +20,8 @@ class PostComment extends TimestampedModel
     public function answers() {
         return $this->hasMany(PostComment::class, 'parent_id', 'id');
     }
+
+    public function complains() {
+        return $this->hasMany(PostCommentComplain::class);
+    }
 }

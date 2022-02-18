@@ -12,6 +12,10 @@ class PostCommentService
 
     public function list($id)
     {
-        return PostComment::query()->where('post_id', $id)->with('answers')->whereNull('parent_id')->get();
+        return PostComment::query()
+            ->where('post_id', $id)
+            ->with('answers', 'complains')
+            ->whereNull('parent_id')
+            ->get();
     }
 }
