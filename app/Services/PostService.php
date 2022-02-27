@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Helpers\Pagination;
 use App\Models\Post;
+use App\Models\PostImage;
 
 class PostService
 {
@@ -33,7 +34,23 @@ class PostService
     }
 
     public function create(array $attributes) {
-        return Post::query()->updateOrCreate($attributes);
+        $images = $attributes['images'] ?? [];
+        unset($attributes['images']);
+        $post   = Post::query()->updateOrCreate($attributes);
+
+        if (! empty($attributes['images'])) {
+            foreach ($images as $image) {
+                $src    = Storage::disk('images')->put($post->id, $image);
+                $image  = PostImage::query()->create(
+                    [
+                        'post_id'   => $post->id,
+                        'src'       => $src
+                    ]
+                );
+            }
+        }
+
+        return $post->load('images');
     }
 
     public function edit($id, array $attributes) {

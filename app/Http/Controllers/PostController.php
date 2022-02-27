@@ -91,6 +91,8 @@ class PostController extends BaseController
             'short_description' => 'required|string',
             'content'           => 'required|string',
             'category_id'       => 'required|exists:categories,id',
+            'images'            => 'nullable',
+            'images.*'          => 'nullable|file|mimes:png,jpeg,png,svg'
         ]);
 
         $validated['user_id'] = $request->user()->id;
