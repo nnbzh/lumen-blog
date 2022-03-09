@@ -14,7 +14,7 @@ class PostCommentService
     {
         return PostComment::query()
             ->where('post_id', $id)
-            ->with('answers', 'complains')
+            ->with('answers', 'complains', 'user')
             ->whereNull('parent_id')
             ->get();
     }

@@ -24,4 +24,8 @@ class PostComment extends TimestampedModel
     public function complains() {
         return $this->hasMany(PostCommentComplain::class);
     }
+
+    public function user() {
+        return $this->belongsTo(User::class);
+    }
 }

@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Helpers\Pagination;
 use App\Models\Post;
 use App\Models\PostImage;
+use Illuminate\Support\Facades\Storage;
 
 class PostService
 {
