@@ -1,0 +1,5 @@
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/d101464/public_html/api
+    - /bin/cp -R /home/d101464/repositories/lumen-blog $DEPLOYPATH
+    - /bin/cp -R /home/d101464/repositories/lumen-blog $DEPLOYPATH
